@@ -50,3 +50,6 @@ spring:
 
       settings:
         web-allow-others: true
+
+gateway:
+  secret: "Ojodondemiraschamoetoesecret"

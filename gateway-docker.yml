@@ -19,16 +19,22 @@ spring:
               uri: lb://modulo-alumnos
               predicates:
                 - Path=/alumnos/**
+              filters:
+                - AddRequestHeader=X-Gateway-Secret, ${gateway.secret}
 
             - id: modulo-cursos
               uri: lb://modulo-cursos
               predicates:
                 - Path=/cursos/**
+              filters:
+                - AddRequestHeader=X-Gateway-Secret, ${gateway.secret}
 
             - id: modulo-administracion
               uri: lb://modulo-administracion
               predicates:
                 - Path=/personal/**
+              filters:
+                - AddRequestHeader=X-Gateway-Secret, ${gateway.secret}
 
 eureka:
   client:
@@ -37,3 +43,6 @@ eureka:
 
   instance:
     lease-renewal-interval-in-seconds: 10
+
+gateway:
+  secret: "Ojodondemiraschamoetoesecret"
