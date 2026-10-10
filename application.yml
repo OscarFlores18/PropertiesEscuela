@@ -1,0 +1,25 @@
+# application.yml raiz: este archivo lo sirve el Config Server a TODOS
+# los clientes (Gateway, Auth, Alumno, Cursos, Administracion, ...),
+# sin importar su spring.application.name. Por eso centralizamos aca los
+# secretos compartidos: se definen una sola vez y todos leen lo mismo.
+#
+# jwt.secret: el valor real NO va en git. ${JWT_SECRET} es un placeholder
+# que Spring completa en runtime con una variable de entorno del sistema
+# operativo donde corre cada microservicio. Si esa variable no existe el
+# servicio va a fallar al arrancar (a proposito).
+#
+# Para correrlo:
+#   - Docker: JWT_SECRET va en el environment de cada servicio del
+#     docker-compose.yml.
+#   - Dev/Eclipse: Run As -> Run Configurations -> Environment -> Add
+#     name: JWT_SECRET, value: <el mismo secret que usa Auth>
+#
+# gateway.internal-secret: clave de red Gateway -> microservicios, en texto
+# plano (segun el practico). No requiere variable de entorno.
+jwt:
+  secret: ${JWT_SECRET}
+  expiration-ms: 900000
+  refresh-expiration-ms: 604800000
+
+gateway:
+  internal-secret: "Ojodondemiraschamoetoesecret"

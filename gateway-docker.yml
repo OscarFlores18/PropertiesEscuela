@@ -10,31 +10,34 @@ spring:
       server:
         webmvc:
           routes:
+
             - id: modulo-auth
               uri: lb://AUTH
               predicates:
                 - Path=/auth/**
+              filters:
+                - SetRequestHeader=X-Gateway-Secret, ${gateway.internal-secret}
 
             - id: modulo-alumnos
               uri: lb://modulo-alumnos
               predicates:
                 - Path=/alumnos/**
               filters:
-                - AddRequestHeader=X-Gateway-Secret, ${gateway.secret}
+                - SetRequestHeader=X-Gateway-Secret, ${gateway.internal-secret}
 
             - id: modulo-cursos
               uri: lb://modulo-cursos
               predicates:
                 - Path=/cursos/**
               filters:
-                - AddRequestHeader=X-Gateway-Secret, ${gateway.secret}
+                - SetRequestHeader=X-Gateway-Secret, ${gateway.internal-secret}
 
             - id: modulo-administracion
               uri: lb://modulo-administracion
               predicates:
                 - Path=/personal/**
               filters:
-                - AddRequestHeader=X-Gateway-Secret, ${gateway.secret}
+                - SetRequestHeader=X-Gateway-Secret, ${gateway.internal-secret}
 
 eureka:
   client:
@@ -43,6 +46,3 @@ eureka:
 
   instance:
     lease-renewal-interval-in-seconds: 10
-
-gateway:
-  secret: "Ojodondemiraschamoetoesecret"
