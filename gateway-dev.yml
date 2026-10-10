@@ -39,6 +39,30 @@ spring:
               filters:
                 - SetRequestHeader=X-Gateway-Secret, ${gateway.internal-secret}
 
+            - id: swagger-alumno
+              uri: lb://modulo-alumnos
+              predicates:
+                - Path=/alumno/**
+              filters:
+                - StripPrefix=1
+                - SetRequestHeader=X-Gateway-Secret, ${gateway.internal-secret}
+
+            - id: swagger-cursos
+              uri: lb://modulo-cursos
+              predicates:
+                - Path=/curso/**
+              filters:
+                - StripPrefix=1
+                - SetRequestHeader=X-Gateway-Secret, ${gateway.internal-secret}
+
+            - id: swagger-administracion
+              uri: lb://modulo-administracion
+              predicates:
+                - Path=/administracion/**
+              filters:
+                - StripPrefix=1
+                - SetRequestHeader=X-Gateway-Secret, ${gateway.internal-secret}
+
 eureka:
   client:
     service-url:
