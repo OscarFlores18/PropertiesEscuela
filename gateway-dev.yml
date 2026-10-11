@@ -85,3 +85,18 @@ eureka:
 
   instance:
     lease-renewal-interval-in-seconds: 10
+
+# Documentacion agregada: una sola UI que lista los Swagger de cada microservicio.
+# Cada url pasa por las rutas swagger-* definidas arriba (con StripPrefix=1).
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
+    urls:
+      - name: Alumnos
+        url: /alumno/v3/api-docs
+      - name: Cursos
+        url: /curso/v3/api-docs
+      - name: Notas
+        url: /nota/v3/api-docs
+      - name: Administracion
+        url: /administracion/v3/api-docs
