@@ -25,7 +25,7 @@ spring:
     url: jdbc:mysql://mysql:3306/notasdb?createDatabaseIfNotExist=true&useSSL=false&allowPublicKeyRetrieval=true
     driver-class-name: com.mysql.cj.jdbc.Driver
     username: root
-    password: rootpass
+    password: ${MYSQL_ROOT_PASSWORD}
 
   jpa:
     hibernate:
