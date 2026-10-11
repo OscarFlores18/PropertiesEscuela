@@ -32,6 +32,13 @@ spring:
               filters:
                 - SetRequestHeader=X-Gateway-Secret, ${gateway.internal-secret}
 
+            - id: modulo-notas
+              uri: lb://modulo-notas
+              predicates:
+                - Path=/notas/**
+              filters:
+                - SetRequestHeader=X-Gateway-Secret, ${gateway.internal-secret}
+
             - id: modulo-administracion
               uri: lb://modulo-administracion
               predicates:
@@ -51,6 +58,14 @@ spring:
               uri: lb://modulo-cursos
               predicates:
                 - Path=/curso/**
+              filters:
+                - StripPrefix=1
+                - SetRequestHeader=X-Gateway-Secret, ${gateway.internal-secret}
+
+            - id: swagger-notas
+              uri: lb://modulo-notas
+              predicates:
+                - Path=/nota/**
               filters:
                 - StripPrefix=1
                 - SetRequestHeader=X-Gateway-Secret, ${gateway.internal-secret}
