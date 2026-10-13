@@ -1,24 +1,15 @@
 # application.yml raiz: este archivo lo sirve el Config Server a TODOS
 # los clientes (Gateway, Auth, Alumno, Cursos, Administracion, Notas, ...),
-# sin importar su spring.application.name. Por eso centralizamos aca los
-# secretos compartidos: se definen una sola vez y todos leen lo mismo.
+# sin importar su spring.application.name.
 #
-# IMPORTANTE: ningun secreto real se versiona en git. Los valores se inyectan
-# en runtime mediante variables de entorno del sistema operativo / contenedor:
-#   - jwt.secret              <- variable JWT_SECRET
-#   - gateway.internal-secret <- variable GATEWAY_INTERNAL_SECRET
-# Si la variable no existe, el servicio falla al arrancar (a proposito).
+# IMPORTANTE: ningun secreto real se versiona en git. El unico secreto es
+# jwt.secret, que solo necesitan el Gateway (valida el JWT) y Auth (lo firma);
+# se inyecta en runtime con la variable de entorno JWT_SECRET.
 #
-# Para correrlo:
-#   - Docker: ambas variables van en el archivo .env de docker-compose.yml
-#     (ver .env.example en la raiz del proyecto).
-#   - Dev/Eclipse: Run As -> Run Configurations -> Environment -> agregar
-#     JWT_SECRET y GATEWAY_INTERNAL_SECRET con los mismos valores en Auth,
-#     Gateway y los microservicios de datos.
+# Los microservicios de datos NO necesitan el secreto: el Gateway valida el
+# JWT y les propaga el rol autenticado en el header interno X-Gateway-Role,
+# y solo el Gateway puede alcanzarlos (sus puertos no se publican).
 jwt:
   secret: ${JWT_SECRET}
   expiration-ms: 900000
   refresh-expiration-ms: 604800000
-
-gateway:
-  internal-secret: ${GATEWAY_INTERNAL_SECRET}

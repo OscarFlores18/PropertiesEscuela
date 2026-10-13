@@ -15,36 +15,26 @@ spring:
               uri: lb://AUTH
               predicates:
                 - Path=/auth/**
-              filters:
-                - SetRequestHeader=X-Gateway-Secret, ${gateway.internal-secret}
 
             - id: modulo-alumnos
               uri: lb://modulo-alumnos
               predicates:
                 - Path=/alumnos/**
-              filters:
-                - SetRequestHeader=X-Gateway-Secret, ${gateway.internal-secret}
 
             - id: modulo-cursos
               uri: lb://modulo-cursos
               predicates:
                 - Path=/cursos/**
-              filters:
-                - SetRequestHeader=X-Gateway-Secret, ${gateway.internal-secret}
 
             - id: modulo-notas
               uri: lb://modulo-notas
               predicates:
                 - Path=/notas/**
-              filters:
-                - SetRequestHeader=X-Gateway-Secret, ${gateway.internal-secret}
 
             - id: modulo-administracion
               uri: lb://modulo-administracion
               predicates:
                 - Path=/personal/**
-              filters:
-                - SetRequestHeader=X-Gateway-Secret, ${gateway.internal-secret}
 
             - id: swagger-alumno
               uri: lb://modulo-alumnos
@@ -52,7 +42,6 @@ spring:
                 - Path=/alumno/**
               filters:
                 - StripPrefix=1
-                - SetRequestHeader=X-Gateway-Secret, ${gateway.internal-secret}
 
             - id: swagger-cursos
               uri: lb://modulo-cursos
@@ -60,7 +49,6 @@ spring:
                 - Path=/curso/**
               filters:
                 - StripPrefix=1
-                - SetRequestHeader=X-Gateway-Secret, ${gateway.internal-secret}
 
             - id: swagger-notas
               uri: lb://modulo-notas
@@ -68,7 +56,6 @@ spring:
                 - Path=/nota/**
               filters:
                 - StripPrefix=1
-                - SetRequestHeader=X-Gateway-Secret, ${gateway.internal-secret}
 
             - id: swagger-administracion
               uri: lb://modulo-administracion
@@ -76,7 +63,6 @@ spring:
                 - Path=/administracion/**
               filters:
                 - StripPrefix=1
-                - SetRequestHeader=X-Gateway-Secret, ${gateway.internal-secret}
 
 eureka:
   client:
